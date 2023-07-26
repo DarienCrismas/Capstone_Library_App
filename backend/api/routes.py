@@ -1,14 +1,8 @@
 from flask import Blueprint, request, jsonify
-from .api_func import get_list
 from ..models import db, Library
 
 api = Blueprint('api', __name__, url_prefix="/api")
 
-# search move to reach
-@api.get("/search/<query>")
-def search_list(query):
-    result = get_list(query)
-    return result
 
 # add one book
 @api.post("/library")
@@ -25,7 +19,7 @@ def add_book():
     owned = request.json["owned"]
     user_score = request.json["user_score"]
     user_notes = request.json["user_notes"]
-    # make sure user token is part of the store and then dispatch
+
     
 
     book = Library( user_token, cover, title, author, key, description, first_published, status, owned, user_score, user_notes)
@@ -34,17 +28,6 @@ def add_book():
     db.session.commit()
     
     return book.to_dict()
-
-
-# # get one book
-# if you want it to work and actually need it change the endpoint not just var
-# @api.get("/library/<id>")
-# def get_book(id):
-#     if id:
-#         book = Library.query.get(id)
-#         return book.to_dict()
-#     else:
-#         return "Book not found"
 
 
 # get all books
