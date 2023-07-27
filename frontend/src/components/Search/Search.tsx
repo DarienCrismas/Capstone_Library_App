@@ -204,12 +204,14 @@ export const Search = () => {
           <MainText>
             
             <h1>Search</h1>
+            
             <form onSubmit={handleSubmit(getList)}>
-            <div>
-                <Input {...register('query')} sx={{width:"50%"}} name='query' placeholder='Name of Work' />   
-            </div>
+            <Box mt={5} sx={{width:"50%", transform: "translate(50%, -50%)"}}>
+                <Input {...register('query')} name='query' placeholder='Name of Work' />   
+                </Box>
                 <Button type='submit' color="primary" variant="contained">Submit</Button>
             </form>
+            
           </MainText>
            
             <Grid sx = {{mt:1}} container spacing={5}>
