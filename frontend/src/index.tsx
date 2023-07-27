@@ -7,7 +7,7 @@ import { Provider } from "react-redux";
 import "firebase/auth";
 
 // INTERNAL
-import { Home, Library, SignIn, SignUp} from "./components/index"
+import { Home, Library, SignIn, SignUp, Search, Faq} from "./components/index"
 import { theme } from "./Theme/themes";
 import "./styles.css"
 import { store } from "./redux/store";
@@ -23,8 +23,8 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
           <Router>
             <Routes>
               <Route path = "/" element={<Home title = {"Personal Library"}/>}/>
-              {/* <Route path = "/faq" element={<Faq/>}/> */}
-              {/* <Route path = "/search" element={<Search/>}/> */}
+              <Route path = "/faq" element={<Faq/>}/>
+              <Route path = "/search" element={<Search/>}/>
               <Route path = "/library" element={<Library/>}/>
               <Route path = "/signin" element={<SignIn/>}/>
               <Route path = "/signup" element={<SignUp/>}/>

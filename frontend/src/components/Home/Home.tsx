@@ -5,7 +5,7 @@ import { Button } from "@mui/material";
 import { Link } from "react-router-dom";
 
 // INTERNAL
-import bg_img from "../../assets/silas-baisch-K785Da4A_JA-unsplash.jpg"
+import bg_img from "../../assets/layered-peaks-haikei.svg"
 
 interface Props{
     title: string;
@@ -20,7 +20,7 @@ const NavBar = styled("div")({
     display: "flex",
     justifyContent: "space-between",
     alignItems: "center",
-    backgroundColor: "red",
+    backgroundColor: "black",
 });
 
 const Logo = styled("h1")({
@@ -28,7 +28,7 @@ const Logo = styled("h1")({
 });
 
 const LogoA = styled(Link)({
-    color: "black",
+    color: "white",
     listStyle: "none",
     textTransform: "uppercase",
     textDecorationLine: "none"
@@ -43,12 +43,12 @@ const LogoNav = styled("ul")({
 const NavA = styled(Link)({
     display: "block",
     padding: "1.5vw",
-    color: "black",
+    color: "white",
     textDecorationLine: "none",
 });
 
 const Main = styled("main")({
-    backgroundImage: `linear-gradient(rgba(0,0,0,0), rgba(0,0,0,.3)), url(${bg_img})`,
+    backgroundImage: `url(${bg_img})`,
     width: "100%",
     height: "100%",
     backgroundSize: "cover",
@@ -64,7 +64,7 @@ const MainText = styled("div")({
     top: "40%",
     left: "50%",
     transform: "translate(-50%, -50%)",
-    color: "white",
+    color: "black",
     lineHeight: 2
 })
 
@@ -108,8 +108,12 @@ export const Home = ( props:Props) => {
                     <p>
                         Salutations and felicitations, welcome to your personal library
                     </p>
-                    <Button color="primary" component={Link} variant="contained" to="/library">
-                        View Your Library
+                    <Button color="primary" component={Link} variant="contained" to="/signup">
+                        Sign Up
+                    </Button>
+
+                    <Button color="primary" component={Link} variant="contained" to="/signup">
+                        Sign In
                     </Button>
                 </MainText>
             </Main>

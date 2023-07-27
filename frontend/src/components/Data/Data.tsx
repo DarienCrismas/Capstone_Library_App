@@ -52,10 +52,6 @@ const columns: GridColDef[] = [
     }
 ];
 
-
-// const rows = [
-//     { id: 1, user_token: "filler", cover: "filler", title: "filler", author: "filler", key: "filler", description: "filler", first_published: "filler", status: "filler" , owned: "filler", user_score : "filler", user_notes : "filler"}];
-
     
 export const Data = () => {
     const {libraryData, getData} = useGetData();
@@ -93,7 +89,7 @@ export const Data = () => {
         onRowSelectionModelChange={(newSelectionModel) => setData(newSelectionModel)}
         />
         <Button onClick={handleOpen}>Update</Button>
-                <Button variant="contained" sx={{backgroundColor: "red", "&:hover": { backgroundColor: "black",
+                <Button variant="contained" sx={{backgroundColor: "#00000", "&:hover": { backgroundColor: "black",
             color: "white"
           },}} onClick={deleteData}>Delete</Button>
                 <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">

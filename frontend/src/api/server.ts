@@ -1,23 +1,3 @@
-
-import axios from 'axios';
-
-
-
- // search
-export const searchData = {
-   
-    getList:async (search:string) => {
-        search = search.replace(" ", "%20")
-        let response = await axios.get(`https://openlibrary.org/search.json?q=${search}`)
-        console.log(response);
-
-        let x = response.data.docs.slice(0,5);
-        console.log(x)
-        return x
-    },
-}
-
-
 export const serverCalls = {
     user_token: localStorage.getItem("user_token"),
     // get all
@@ -32,7 +12,6 @@ export const serverCalls = {
         if (!response.ok){
             throw new Error('Failed to fetch data from server')
         }
-
         return await response.json()
     },
 

@@ -9,7 +9,7 @@ import { styled } from "@mui/system";
 import { SubmitHandler, useForm} from "react-hook-form";
 
 // INTERNAL
-import bg_img from "../../assets/images/thimo-pedersen-TWCnHKKhqSo-unsplash.jpg";
+import bg_img from "../../assets/layered-peaks-haikei.svg"
 import { Input, InputPassword } from "../sharedComponents";
 
 
@@ -59,7 +59,7 @@ const NavA = styled(Link)({
 })
 
 const Main = styled("main")({
-    backgroundImage: `linear-gradient(rgba(255,255,255,.8), rgba(255,255,255,0)), url(${bg_img})`,
+    backgroundImage: `url(${bg_img})`,
     backgroundColor: "white",
     width: "100%",
     height: "100%",
@@ -87,27 +87,34 @@ export const GoogleButton = (props: ButtonProps) =>{
 
     const signIn =async () => {
         await signInWithGoogle();
-        console.log(auth);
+        // console.log(auth);
 
         if (auth.currentUser){
-           
+
+            onAuthStateChanged(auth, (user)=>{
+                if (user){
+                    console.log(user.email)
+                    console.log(user.uid)
+                    localStorage.setItem("user_token", user.uid)
+                }
+            })
+
             localStorage.setItem("myAuth", "true")
-            navigate("/dashboard")
+            console.log(localStorage.getItem("user_token"))
+            navigate("/library")
+            window.location.reload()
+            
         }else{
             navigate("/signin")
         }
     };
 
-    onAuthStateChanged(auth, (user)=>{
-        if (user){
-            console.log(user.email)
-            console.log(user.uid)
-        }
-    })
+    
 
     const signUserOut =async () => {
         await signOut(auth);
         localStorage.setItem("myAuth", "false");
+        localStorage.setItem("user_token", "")
         navigate("/signin")
     };
 
@@ -146,9 +153,11 @@ export const SignIn = () =>{
         setAlertOpen(true)
     };
 
-    const navToDash = () =>{
-        navigate("/dashboard")
+    const navToLibrary = () =>{
+        navigate("/library")
+        window.location.reload()
     };
+
 
     const onSubmit: SubmitHandler<UserProps> =async (data, event) => {
         event?.preventDefault()
@@ -156,14 +165,27 @@ export const SignIn = () =>{
 
         signInWithEmailAndPassword(auth, data.email, data.password)
             .then((userCredential)=>{
+                
                 localStorage.setItem("myAuth", "true");
+
                 const user = userCredential.user;
-                navigate("/dashboard")
+                navigate("/library")
+                window.location.reload()
+                
             })
             .catch((error)=>{
                 const errorCode = error.code;
                 const errorMessage = error.message;
                 console.log(errorMessage, errorCode)
+            })
+
+            onAuthStateChanged(auth, (user)=>{
+                if (user){
+                    console.log(user.email)
+                    console.log(user.uid)
+                    localStorage.setItem("user_token", user.uid)
+                    console.log(localStorage.getItem("user_token"))
+                }
             })
 
     };
@@ -185,7 +207,7 @@ export const SignIn = () =>{
             </form>
             <NavA to="/signup" sx={{textAlign: "center", marginTop: "20px"}}>Register Now</NavA>
             <GoogleButton open={open} onClick={handleSnackClosed}/>
-            <Snackbar message="success" open={alertOpen} autoHideDuration={3000} onClose={navToDash}>
+            <Snackbar message="success" open={alertOpen} autoHideDuration={3000} onClose={navToLibrary}>
                 <div>
                     <Alert severity="success">
                         <AlertTitle>Successful Sign In. Redirecting.</AlertTitle>
@@ -210,8 +232,9 @@ export const SignUp = () =>{
         setAlertOpen(true)
     };
 
-    const navToDash = () =>{
-        navigate("/dashboard")
+    const navToLibrary = () =>{
+        navigate("/library")
+        window.location.reload()
     };
 
     const onSubmit: SubmitHandler<UserProps> =async (data, event) => {
@@ -241,12 +264,12 @@ export const SignUp = () =>{
                     <label htmlFor="email">Email</label>
                     <Input {...register("email")} name="email" placeholder="Enter Email Here"/>
                     <label htmlFor="password">Password</label>
-                    <InputPassword {...register("password")} name="passsword" placeholder="Enter Password Here"/>
+                    <InputPassword {...register("password")} name="password" placeholder="Enter Password Here"/>
                 </div>
                 <Button type="submit" variant="contained" color="primary">Submit</Button>
             </form>
             <GoogleButton open={open} onClick={handleSnackClosed}/>
-            <Snackbar message="success" open={alertOpen} autoHideDuration={3000} onClose={navToDash}>
+            <Snackbar message="success" open={alertOpen} autoHideDuration={3000} onClose={navToLibrary}>
                 <div>
                     <Alert severity="success">
                         <AlertTitle>Successful Sign Up. Redirecting.</AlertTitle>
