@@ -64,9 +64,6 @@ export const Faq = () =>{
                     </LogoA>
                 </Logo>
                 <LogoNav>
-                    <li>
-                        <NavA to="/">Home</NavA>
-                    </li>
                     
                     {myAuth === "true" ? 
                         <>
@@ -87,33 +84,38 @@ export const Faq = () =>{
                     }
                 </LogoNav>
             </NavBar>
-        <Accordion>
-                    <AccordionSummary
-                        expandIcon={<ExpandMoreIcon />}
-                        aria-controls="a1-content"
-                        id="a1-header">
-                        <Typography>About</Typography>
-                    </AccordionSummary>
-                    <AccordionDetails>
-                        <Typography>
-                        Web app for tracking your pokemon card collection.
-                        </Typography>
-                    </AccordionDetails>
-                    </Accordion>
-                    <Accordion>
-                    <AccordionSummary
-                        expandIcon={<ExpandMoreIcon />}
-                        aria-controls="a2-content"
-                        id="a2-header">
-                        <Typography>Instructions</Typography>
-                    </AccordionSummary>
-                    <AccordionDetails>
-                        <Typography>
-                        If there was more functionality this is where I would put actual instructions. Maybe I'll expand this after capstone.
-                        </Typography>
-                    </AccordionDetails>
+            <Box mt={5} display="flex" justifyContent="center" alignItems="center">
+                <Accordion sx={{width:"50%"}}>
+                        <AccordionSummary
+                            expandIcon={<ExpandMoreIcon />}
+                            aria-controls="a1-content"
+                            id="a1-header">
+                            <Typography>About</Typography>
+                        </AccordionSummary>
+                        <AccordionDetails>
+                            <Typography>
+                            Book collection app. You can track reading progress, whether you own a book, give your book a personal rating, and leave notes on your reading experience.
+                            </Typography>
+                        </AccordionDetails>
                 </Accordion>
-    </Box>
+            </Box>
+            <Box mt={3} display="flex" justifyContent="center" alignItems="center">
+                <Accordion  sx={{width:"50%"}}>
+                        <AccordionSummary
+                            expandIcon={<ExpandMoreIcon />}
+                            aria-controls="a2-content"
+                            id="a2-header">
+                            <Typography>Quick Tips</Typography>
+                        </AccordionSummary>
+                        <AccordionDetails>
+                            <Typography>
+                            While the personal rating field can take short comments, if you want to be able to sort by rating it would be best to use a consistent number system.
+                            </Typography>
+                        </AccordionDetails>
+                </Accordion>
+            </Box>
+            
+        </Box>
     </Main>
     )
     

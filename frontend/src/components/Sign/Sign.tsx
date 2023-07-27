@@ -5,7 +5,7 @@ import {useSignInWithGoogle} from "react-firebase-hooks/auth";
 import { getAuth, signOut, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
 import { Container, Button, Typography, Snackbar, Alert as MUIAlert, AlertProps, AlertTitle, CircularProgress } from "@mui/material";
 import { useNavigate, Link } from "react-router-dom";
-import { styled } from "@mui/system";
+import { Box, styled } from "@mui/system";
 import { SubmitHandler, useForm} from "react-hook-form";
 
 // INTERNAL
@@ -15,7 +15,7 @@ import { Input, InputPassword } from "../sharedComponents";
 
 const signinStyles = {
     googleButton: {
-        backgroundColor: "#3c5aa6",
+        backgroundColor: "black",
         margin: "2em",
         padding: 0,
         color: "white",
@@ -26,7 +26,7 @@ const signinStyles = {
         fontSize: "16px",
         lineHeight: "48px",
         display: "block",
-        borderRadius: "20px",
+        borderRadius: "10px",
         fontFamily: "monospace",
         cursor: "pointer",
         left: "22%"
@@ -46,7 +46,7 @@ const signinStyles = {
     },
     snackBar: {
         color: "white",
-        backGroundColor: "#4caf50"
+        backGroundColor: "#black"
     }
 };
 
@@ -127,7 +127,10 @@ export const GoogleButton = (props: ButtonProps) =>{
    
     if (myAuth === "true"){
         return(
-            <Button variant="contained" color="secondary" onClick={signUserOut}>Sign Out</Button>
+            <Box m={3} display="flex" justifyContent="center" alignItems="center">
+                <Button variant="contained" sx={{color:"#00000", fontSize:"20px"}} onClick={signUserOut}>Sign Out</Button>
+            </Box>
+            
         )
     }else{
         return(
@@ -203,7 +206,7 @@ export const SignIn = () =>{
                     <label htmlFor="password">Password</label>
                     <InputPassword {...register("password")} name="password" placeholder="Enter Password Here"/>
                 </div>
-                <Button type="submit" variant="contained" sx={{backgroundColor: "#ffcb05", left: "43%", borderRadius: "20px"}}>Submit</Button>
+                <Button type="submit" variant="contained" sx={{backgroundColor: "#00000", left: "43%", borderRadius: "5px"}}>Submit</Button>
             </form>
             <NavA to="/signup" sx={{textAlign: "center", marginTop: "20px"}}>Register Now</NavA>
             <GoogleButton open={open} onClick={handleSnackClosed}/>

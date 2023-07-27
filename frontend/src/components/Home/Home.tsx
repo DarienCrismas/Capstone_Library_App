@@ -1,6 +1,6 @@
 // EXTERNAL
 import React from "react";
-import { styled } from "@mui/system";
+import { margin, styled } from "@mui/system";
 import { Button } from "@mui/material";
 import { Link } from "react-router-dom";
 
@@ -104,17 +104,18 @@ export const Home = ( props:Props) => {
             </NavBar>
             <Main>
                 <MainText>
-                    <h1>{props.title}</h1>
-                    <p>
-                        Salutations and felicitations, welcome to your personal library
-                    </p>
-                    <Button color="primary" component={Link} variant="contained" to="/signup">
+                    <h1>Salutations and felicitations, welcome to your personal library</h1>
+                   
+                    <div>
+                    <Button color="primary" sx={{margin: "10px"}} component={Link} variant="contained" to="/signup">
                         Sign Up
                     </Button>
 
                     <Button color="primary" component={Link} variant="contained" to="/signup">
                         Sign In
                     </Button>
+                    </div>
+                    
                 </MainText>
             </Main>
 

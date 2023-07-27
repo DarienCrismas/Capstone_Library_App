@@ -21,54 +21,66 @@ const NavBar = styled("div")({
     display: "flex",
     justifyContent: "space-between",
     alignItems: "center",
-    backgroundColor: "red",
-});
-
-const Logo = styled("h1")({
+    backgroundColor: "black",
+  });
+  
+  const Logo = styled("h1")({
     margin: "0 0 0 0.45em",
-});
-
-const LogoA = styled(Link)({
-    color: "black",
+  });
+  
+  const LogoA = styled(Link)({
+    color: "white",
     listStyle: "none",
     textTransform: "uppercase",
     textDecorationLine: "none"
-});
-
-const LogoNav = styled("ul")({
+  });
+  
+  const LogoNav = styled("ul")({
     listStyle: "none",
     textTransform: "uppercase",
     display: "flex",
-});
-
-const NavA = styled(Link)({
+  });
+  
+  const NavA = styled(Link)({
     display: "block",
     padding: "1.5vw",
-    color: "black",
+    color: "white",
     textDecorationLine: "none",
-});
+  });
 
+  
 export const Library = () => {
-
+    const myAuth = localStorage.getItem("myAuth");
     return (
         <Box>
 
-            <NavBar>
+        <NavBar>
                 <Logo>
                     <LogoA to="/">
-                        Library
+                        Home
                     </LogoA>
                 </Logo>
                 <LogoNav>
-                    <li>
+                    
+                    {myAuth === "true" ? 
+                        <>
+                        <li>
                         <NavA to="/faq">FAQ</NavA>
-                    </li>
-                    <li>
+                       </li>
+                        <li>
                         <NavA to="/search">Search</NavA>
-                    </li>
-                    <li>
-                        <NavA to="/library">Library</NavA>
-                    </li>
+                        </li>
+                        
+                       <li>
+                            <NavA to="/signin">Sign Out</NavA>
+                        </li></>
+                        :
+                         <><li>
+                         <NavA to="/signin">Sign In</NavA>
+                        </li><li>
+                             <NavA to="/signup">Sign Up</NavA>
+                         </li></>
+                    }
                 </LogoNav>
             </NavBar>
   

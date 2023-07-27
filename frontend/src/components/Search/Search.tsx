@@ -3,9 +3,10 @@ import React, {useState} from "react";
 import { SubmitHandler, useForm } from 'react-hook-form';
 import axios from 'axios';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
-import { Avatar, Button, Card, CardActions, CardContent, CardHeader, CardMedia, Collapse, Grid, IconButton, IconButtonProps, Typography, styled } from "@mui/material";
+import { Avatar, Box, Button, Card, CardActions, CardContent, CardHeader, CardMedia, Collapse, Grid, IconButton, IconButtonProps, Typography, styled } from "@mui/material";
 import { ExpandMore } from "@mui/icons-material";
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import { Link } from "react-router-dom";
 
 
 // INTERNAL
@@ -14,12 +15,65 @@ import { BookState, chooseAuthor, chooseCover, chooseDescription, chooseFirstPub
 import { useDispatch, useStore } from "react-redux";
 import { serverCalls } from "../../api";
 import { useNavigate } from "react-router";
+import bg_img from "../../assets/layered-peaks-haikei.svg"
 
 
 interface setSearch{
     query:string
 }
 
+const NavBar = styled("div")({
+  display: "flex",
+  justifyContent: "space-between",
+  alignItems: "center",
+  backgroundColor: "black",
+});
+
+const Logo = styled("h1")({
+  margin: "0 0 0 0.45em",
+});
+
+const LogoA = styled(Link)({
+  color: "white",
+  listStyle: "none",
+  textTransform: "uppercase",
+  textDecorationLine: "none"
+});
+
+const LogoNav = styled("ul")({
+  listStyle: "none",
+  textTransform: "uppercase",
+  display: "flex",
+});
+
+const NavA = styled(Link)({
+  display: "block",
+  padding: "1.5vw",
+  color: "white",
+  textDecorationLine: "none",
+});
+
+
+
+const MainText = styled("div")({
+  textAlign: "center",
+  position: "relative",
+  top: "15%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  color: "black",
+  lineHeight: 2
+})
+
+const Main = styled("main")({
+  backgroundImage: `url(${bg_img})`,
+  width: "100%",
+  height: "100%",
+  backgroundSize: "cover",
+  backgroundRepeat: "no-repeat",
+  backgroundPosition: "center",
+  position: "absolute"
+});
 
 export const Search = () => {
     
@@ -116,24 +170,52 @@ export const Search = () => {
 //     setExpanded(!expanded);
 //     }; 
 // }
-    
+  const myAuth = localStorage.getItem("myAuth");
     return(
-        
         <div>
-            <div>Search</div>
+          <NavBar>
+                <Logo>
+                    <LogoA to="/">
+                        Home
+                    </LogoA>
+                </Logo>
+                <LogoNav>
+                    <li>
+                        <NavA to="/faq">FAQ</NavA>
+                    </li>
+                    
+                    {myAuth === "true" ? 
+                        <>
+                        <li>
+                        <NavA to="/library">Library</NavA>
+                       </li><li>
+                            <NavA to="/signin">Sign Out</NavA>
+                        </li></>
+                        :
+                         <><li>
+                         <NavA to="/signin">Sign In</NavA>
+                        </li><li>
+                             <NavA to="/signup">Sign Up</NavA>
+                         </li></>
+                    };
+                </LogoNav>
+            </NavBar>
+        <Main>
+          <MainText>
+            
+            <h1>Search</h1>
             <form onSubmit={handleSubmit(getList)}>
             <div>
-                <label htmlFor='query'>Work Name</label>
-                <Input {...register('query')} name='query' placeholder='Name Here' />   
+                <Input {...register('query')} sx={{width:"50%"}} name='query' placeholder='Name of Work' />   
             </div>
-                <Button type='submit'>Submit</Button>
+                <Button type='submit' color="primary" variant="contained">Submit</Button>
             </form>
-
+          </MainText>
            
-            <Grid container spacing={5}>
+            <Grid sx = {{mt:1}} container spacing={5}>
                 {searchData.length > 0 ? searchData.map((book, index)=>(
                 <Grid item key={index} sm={12} md={3} lg={2}>
-                    <Card sx={{ maxWidth: 345 }}>
+                    <Card sx={{ maxWidth: 345, boxShadow: 3 }}>
                     {/* <CardMedia
                     //   component="img"
                     //   height="194"
@@ -141,10 +223,10 @@ export const Search = () => {
                     //   alt="Paella dish"
                     /> */}
                     <CardContent>
-                      <Typography variant="body2" color="text.secondary">
+                      <Typography variant="h5" color="text.secondary">
                         {book.title}
                       </Typography>
-                      <Typography paragraph>
+                      <Typography sx={{mt:1}} paragraph>
                         {book.author_name[0]}
                         </Typography>
                         <Typography paragraph>
@@ -153,9 +235,11 @@ export const Search = () => {
                         <Typography paragraph>
                         {book.first_publish_year}
                         </Typography>
-                        <Button onClick= {()=>{addToLibrary(book as unknown as ApiState)}}>
+                        <Box m={1} display="flex" justifyContent="center" alignItems="center">
+                        <Button color="primary" variant="contained" sx={{justifyContent: 'center'}} onClick= {()=>{addToLibrary(book as unknown as ApiState)}}>
                           Add to Library
                         </Button>
+                        </Box>
                     </CardContent>
                     {/* <CardActions disableSpacing>
                       <ExpandMore
@@ -180,6 +264,7 @@ export const Search = () => {
                     )) : <div></div>
                     }
               </Grid>
+        </Main>
         </div>
     ) 
 }
