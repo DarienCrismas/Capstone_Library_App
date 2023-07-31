@@ -75,6 +75,10 @@ const Main = styled("main")({
   position: "absolute"
 });
 
+const Header = styled("h1")({
+  marginTop: "5vh"
+})
+
 export const Search = () => {
     
     const [searchData, addSearchData] = useState<{ [x: string]: string; }[]>([]);
@@ -203,7 +207,9 @@ export const Search = () => {
         <Main>
           <MainText>
             
-            <h1>Search</h1>
+            <Header>
+              Search
+            </Header>
             
             <form onSubmit={handleSubmit(getList)}>
             <Box mt={5} sx={{width:"50%", transform: "translate(50%, -50%)"}}>
